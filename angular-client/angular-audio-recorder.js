@@ -214,6 +214,10 @@ var RecorderController = function (element, service, service1, recorderUtils, $s
       status.playback = PLAYBACK.STOPPED;
     }
 
+    service1.postStream(function(data) {
+      console.log('data', data);
+    });
+
     //clear audio previously recorded
     control.audioModel = null;
 

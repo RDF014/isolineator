@@ -63,6 +63,7 @@ app.post('/record', upload.single('recording'), function(req, res) {
 
 // Creates a file first, THEN transcribes the audio from the file
 // RETURNS the transcribed text string.
+// first audio create wave file, then transcribes
 app.post('/testCreate', (req, res) => {
   record.start({
     sampleRate: 44100,
@@ -82,13 +83,15 @@ app.post('/testCreate', (req, res) => {
 app.post('/testStream', function(req, res) {
   record.start({
     sampleRate: 44100,
-    threshold: 0.5,
+    threshold: 0,
     verbose: true
   })
   .pipe(Speech.liveStreamAudio((data) => {
-    console.log(data)
+    console.log(data);
+    res.write(data.results);
     if(data.endpointerType === 'ENDPOINTER_EVENT_UNSPECIFIED') {
-      res.status(201).send(data.results[0].transcript);
+      console.log('transcribed data from teststream', data.results);
+      res.status(201).end();
     }
   }));
 });

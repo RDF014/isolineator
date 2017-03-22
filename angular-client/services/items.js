@@ -34,6 +34,31 @@ angular.module('app')
     });
   };
 
+    this.postStream = function(callback) {
+    // var formData = new FormData();
+    // formData.append('recording', recording, filename);
+
+    $http({
+      method: 'POST',
+      url: 'http://127.0.0.1:5000/testStream', 
+      // data: formData,
+      // // contentType: 'multipart/form-data',
+      // contentType: false,
+      // transformRequest: angular.identity,
+      // processData: false,
+      // headers: {'Content-type': undefined}
+    })
+    .then(function(data) {
+      console.log('data from success:', data);
+      if (callback) {
+        callback(data);
+      }
+    })
+     .catch(function(err) {
+       console.log('error in postRecording', err);
+     });
+    };
+
   this.postRecording = function(filename, recording, date, callback) { 
     // var req = {};
     // req.filename = filename;
