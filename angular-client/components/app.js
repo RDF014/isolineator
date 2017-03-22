@@ -31,7 +31,7 @@ angular.module('app')
   this.searchResults = (data) => {
     this.logs = data;
   }
-
+  // test?
 })
 
 .directive('app', function() {
