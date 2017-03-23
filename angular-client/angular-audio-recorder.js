@@ -214,6 +214,13 @@ var RecorderController = function (element, service, service1, recorderUtils, $s
       status.playback = PLAYBACK.STOPPED;
     }
 
+    // var socket = io.connect('http://localhost');
+    var socket = io.connect('http://127.0.0.1:5000');
+    // var socket = new io.Socket();
+    socket.on('transcription', function(data) {
+      console.log('transcription:', data);
+    });
+
     service1.postStream(function(data) {
       console.log('data', data);
     });
@@ -308,6 +315,12 @@ var RecorderController = function (element, service, service1, recorderUtils, $s
       embedPlayer(null);
       control.onRecordComplete();
     };
+
+    //To stop stream
+    service1.stopStream(function(data) {
+      console.log('stopStream invoked', data);
+      socket.disconnect();
+    });
 
     //To stop recording
     if (service.isCordova) {

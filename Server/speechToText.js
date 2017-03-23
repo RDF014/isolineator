@@ -17,7 +17,7 @@ const request = {
     sampleRate: 44100
   },
   singleUtterance: false,
-  interimResults: false,
+  interimResults: true, // maybe to false
   verbose: true
 };
 //##############to create a file first then transcribe##########
