@@ -37,6 +37,7 @@ exports.getSpeechStreamFromChunks = (chunk, callBack) => {
     Text: ''+chunk,     // This is where you'll specify whatever text you want to render.
     VoiceId: 'Miguel'                   
   };
+  console.log('getSpeechStreamFromChunks : chunk: ', chunk);
   var synthCallback = callBack;
   polly.synthesizeSpeech(params, synthCallback);
 }

@@ -9,14 +9,29 @@ var gfs = Grid(db.dbconn.db);
 
 
 
-exports.saveInputFile = (audFilePath, transcribedData, topic, metaData, callBack) => {
+exports.saveInputFile = (audFilePath, transcribedData, inputtopic, metaData, callBack) => {
+  var topic = inputtopic;
+  // figure out the topic
+  var transcribedArr = transcribedData.split(' ');
+  // console.log('transcribeddata: ', transcribedData);
+  // console.log('transcribedArr: ', transcribedArr);
+  if (transcribedArr[0] === 'topic') {
+    topic = transcribedArr[1];
+    // console.log('there is a topic and it is : ', topic);
+  } 
+  // else {
+  //   console.log('topic was not in voice, current topic : ', topic);
+  // }
+
+
+  // find if files with that topic name exists
   gfs.files.find({filename: topic}).toArray(function (err, files) {
     if (err) {
       throw (err);
     }
   	// console.log('inside then : ', data);
 
-  	console.log('filesFound : ', files);
+  	// console.log('filesFound : ', files);
   var entryNum = 1;
   if (files.length !== 0) {
   	entryNum = files.length + 1;

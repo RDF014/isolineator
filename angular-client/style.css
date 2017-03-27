@@ -2,6 +2,53 @@ body {
     text-align: center;
 }
 
+li {
+  list-style-type: none;
+}
+
+#searchcontainer{
+  margin: 40px;
+}
+
+#logscontainer {
+  padding: 40px;	
+}
+
+#logs {
+	text-align: center;
+}
+
 .panel-default {
  text-align: left; 
+}
+
+.bodycontainer {
+  padding: 30px;
+}
+
+.emptybox {
+  height: 300px;
+  margin: 20px;
+
+}
+
+.outerrecorder {
+	padding: 30px 0;
+}
+.recorder {
+  border: 2px solid #E8E8E8;
+}
+
+.wave {
+  
+
+}
+
+.counter {
+  
+}
+
+.center {
+	margin: 0 auto;
+	text-align: center;
 }

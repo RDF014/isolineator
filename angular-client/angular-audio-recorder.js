@@ -54,6 +54,7 @@ var createReadOnlyVersion = function (object) {
 
 
 var blobToDataURL = function (blob, callback) {
+  console.log('blob in blob to url: ', blob);
   var a = new FileReader();
   a.onload = function (e) {
     callback(e.target.result);
@@ -591,6 +592,7 @@ angular.module('angularAudioRecorder.directives')
             return recorder.audioModel;
           }, function (newBlob) {
             if (newBlob instanceof Blob) {
+              console.log('newBlob in 587 of audio rec: ', newBlob);
               waveSurfer.loadBlob(newBlob);
             }
           });

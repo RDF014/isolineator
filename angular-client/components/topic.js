@@ -6,10 +6,10 @@ angular.module('app')
       this.clicked = function() {
         console.log('attempting search');
         // console.log('input', this.input);
-        this.service.searchLogs(this.input, (data) => { 
-          console.log('input', this.input);
-          this.result(data); 
-        });
+        // this.service.searchLogs(this.input, (data) => { 
+        //   console.log('input', this.input);
+        //   this.result(data); 
+        // });
       };
       
       

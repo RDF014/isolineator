@@ -152,7 +152,7 @@ angular.module('app')
     formData.append('langCode', lang)
 
     console.log('get recording', formData.get('recording'));
-    console.log(formData);
+    console.log('formdata in transOnEnd: ', formData);
 
     $http({
       method: 'POST',

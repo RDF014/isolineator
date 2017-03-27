@@ -1,9 +1,5 @@
-<div>
-  <div>
-    <h1 class="jumbotron">Isolineator</h1>
-    <div>  
-    <div>
-    <ng-audio-recorder id="mainAudio" audio-model="recorded" show-player="false" time-limit="timeLimit">
+<div>  
+  <ng-audio-recorder id="mainAudio" audio-model="recorded" show-player="false" time-limit="timeLimit">
         <div ng-if="recorder.isAvailable">
 
             <div ng-if="recorder.status.isDenied === true" style="color: red;">
@@ -13,7 +9,6 @@
                     ng-disabled="recorder.status.isDenied === true || recorder.status.isRecording" class="btn btn-default">
                 <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
             </button>
-
             <button ng-click="recorder.stopRecord()" type="button" ng-disabled="recorder.status.isRecording === false" class="btn btn-default">
                 <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
             </button>
@@ -24,37 +19,46 @@
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
             </button>
 
-            <!-- <button ng-click="recorder.save(ctrl.topic)" ng-disabled="recorder.status.isRecording || !recorder.audioModel" class="btn btn-default"> -->
             <button ng-click="recorder.save()" ng-disabled="recorder.status.isRecording || !recorder.audioModel" class="btn btn-default">
                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
             </button>
 
+            <listlang></listlang>
 
-            <div style="max-width: 600px">
+            <button ng-if="recorder.status.isRecording" class="btn btn-default">{{recorder.elapsedTime > 9 ? recorder.elapsedTime : ('0'+recorder.elapsedTime)}}</button>
+            <div class="outerrecorder">
+            <!-- <div class="counter"> -->
+            <!-- <h2 style="font-family: sans-serif; text-align: center; width: 60px; border-radius: 20px;
+        border: solid 2px #333; padding: 20px 10px; margin: 0 auto;" ng-if="recorder.status.isRecording">
+                {{recorder.elapsedTime > 9 ? recorder.elapsedTime : ('0'+recorder.elapsedTime)}}
+            </h2> -->
+            <!-- </div> -->
+
+            <div style="max-width: 600px" class="center">
                 <div ng-show="recorder.status.isConverting">
                     Please wait while your recording is processed.
                 </div>
-
-                <div ng-show="recorder.isHtml5 && recorder.status.isRecording">
+                <div ng-show="(!recorder.isHtml5 || !recorder.status.isRecording) && (recorder.status.isRecording || !recorder.audioModel)" class="emptybox">
+                  <ul>
+                      <li><span class="center">Click on the <span class="glyphicon glyphicon-record" aria-hidden="true"></span> and start talking.</li>
+                      <li>After you are done, click <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>.</li>
+                      <li>Explore and learn new spanish words. Play back your voice using <span class="glyphicon glyphicon-play" aria-hidden="true"></span>.</li>
+                      <li>Save this input to the logs by clicking on <span class="glyphicon glyphicon-save" aria-hidden="true"></span>.</li>
+                      <li>Set <strong><em>title</em></strong> to your saved voice records by starting your voice entry with 'topic' yada yada yada 'stop stop'.</li>
+                  </ul>
+                       
+                </div>
+                <div ng-show="recorder.isHtml5 && recorder.status.isRecording" class="recorder">
                     <ng-audio-recorder-analyzer></ng-audio-recorder-analyzer>
                 </div>
                 <br/>
-
-                <div ng-show="!recorder.status.isRecording && recorder.audioModel">
+                
+                <div ng-show="!recorder.status.isRecording && recorder.audioModel" class="wave">
                     <ng-audio-recorder-wave-view wave-color="blue" bar-color="red"></ng-audio-recorder-wave-view>
                 </div>
             </div>
-
-            <h2 style="font-family: sans-serif; text-align: center; width: 60px; border-radius: 20px;
-        border: solid 2px #333; padding: 20px 10px;" ng-if="recorder.status.isRecording">
-                {{recorder.elapsedTime > 9 ? recorder.elapsedTime : ('0'+recorder.elapsedTime)}}
-            </h2>
-
-
-           <!--  <h2 style="font-family: sans-serif; text-align: center; border: solid 2px #333; padding: 20px 10px;"
-                ng-if="recorder.status.isRecording">
-                Remaining Time: {{recorder.timeLimit - recorder.elapsedTime}}
-            </h2> -->
+          </div>
+            
         </div>
 
 
@@ -66,20 +70,14 @@
             use this feature.
         </div>
     </ng-audio-recorder>
-    </div>
 
-    <div ng-model = "ctrl.text" ng-show ="ctrl.text" class = "animate-show-hide">
+    <div ng-model = "ctrl.text" ng-show ="ctrl.text" class = "animate-show-hide"> <strong>English: 
+    </strong>
     {{ctrl.text}}
     </div>
-    <div ng-model = "ctrl.translate" ng-show ="ctrl.translate" class = "animate-show-hide">
-    {{ctrl.translate}}
+    <div ng-model = "ctrl.translate" ng-show ="ctrl.translate" class = "animate-show-hide"> <strong> 
+    Spanish: </strong>
+    {{ctrl.translate}} 
+    
     </div>
-
-    </div>
-    <div>
-      <search service='ctrl.service' result='ctrl.searchResults' logs="ctrl.logs">Search component goes here</search>
-
-      <list service="ctrl.service" logs="ctrl.logs"/>
-    </div>
-  </div>
 </div>

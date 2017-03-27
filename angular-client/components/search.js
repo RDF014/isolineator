@@ -7,7 +7,8 @@ angular.module('app')
       service: '<',
       logs: '='
     },
-    controller: function() {
+    controller: function($scope) {
+      console.log('inside controller: search: ', $scope);
       this.clicked = function() {
         console.log('attempting search');
         // console.log('input', this.input);

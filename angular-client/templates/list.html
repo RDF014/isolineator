@@ -1,5 +1,7 @@
-<uib-accordion close-others="true">
+<uib-accordion close-others="true" id="logscontainer">
  <!-- You have {{ctrl.logs.length}} logs. -->
- <h4> Voice Logs </h4>
-  <list-item ng-repeat="log in ctrl.logs" log=log service="ctrl.service" />
+ <h3 style="font: Bookman Old Style; margin: 40px 0 20px 0;">Logs </h3>
+ <div class="col-sm-8 col-sm-offset-2">
+  <list-item ng-repeat="log in ctrl.logs" log="log" service="ctrl.service" />
+  </div>
 </uib-accordion>

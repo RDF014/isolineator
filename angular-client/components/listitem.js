@@ -3,10 +3,11 @@ angular.module('app')
   return {
     scope: {
       log: '<',
-      service: '='
+      service: '<'
     },
     restrict: 'E',
-    controller: function() {
+    controller: function($scope) {
+      // console.log('inside list item scope: ', $scope);
       this.clicked = function() {
         console.log('attempting to play recording');
         this.service.getFileById(this.log.id, (data) => {

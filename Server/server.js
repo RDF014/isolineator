@@ -64,12 +64,6 @@ app.post('/getFileByTopic', function(req, res) {
   //Apurva uses req.query.topic as parameter
   inputs.getRecordByTopic(req.body.query, (arrOfRecords) => {
     res.status(201).json(arrOfRecords);
-   /*(readStream, transcribedText) => {
-    readstream.pipe(res);
-    readstream.on('end', function () {
-      console.log('file piped to response!');
-      res.status(201).json({text: transcribedText});
-    });*/
   });
 });
 
@@ -81,14 +75,14 @@ app.post('/getFileById', function(req, res) {
 
 app.post('/record', upload.single('recording'), function(req, res) {
 
-  console.log('post handled: request file', req.file);
+  // console.log('post handled: request file', req.file);
 
   Speech.syncAudio(`./${req.file.path}`, (data)=>{
     console.log('data inside syncAudio', data);
     // (audFilePath, transcribedData, topic, metaData, callBack)
     // we can accomodate search tags in the future
     inputs.saveInputFile(`./${req.file.path}`, data, req.file.originalname, {}, (file) => {
-      inputs.consoleLogAllDataBase();
+      // inputs.consoleLogAllDataBase();
     });
     
   });
@@ -99,13 +93,20 @@ app.post('/record', upload.single('recording'), function(req, res) {
 
 app.post('/onEnd', upload.single('recording'), function(req, res) {
   let langCode = req.body.langCode;
+  console.log('lang code in req: ', req.body.langCode);
+  console.log('type of lang code: ', typeof req.body.langCode);
+  if (req.body.langCode === 'undefined') {
+    langCode = 'es';
+  }
   console.log('post handled: request file', req.file);
 
   Speech.syncAudio(`./${req.file.path}`, (text)=>{
-    console.log('data inside syncAudio', text);
-
+    console.log('data inside syncAudio : on end langcode: ', langCode);
+    
     Translater(text, langCode, (translate) => {
       io.emit('transcription', text, translate);
+      console.log('Translater in on end: translate: ', translate);
+      
 
       //Apurva's function goes here
       t2s.getSpeechStreamFromChunks(translate, (err, data) => { //translate should be equal to the final translated text
@@ -249,9 +250,6 @@ app.get('/getLang', (req, res) => {
     res.status(200).send(lang)
   })
 })
-
-
-
 
 
 server.listen(port, function () {
